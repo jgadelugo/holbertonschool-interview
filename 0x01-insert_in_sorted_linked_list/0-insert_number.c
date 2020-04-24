@@ -6,30 +6,45 @@
   *
   * @head: head of sorted linked list
   * @number: new value for node
-  * Return: head of linked list
+  * Return: new node of linked list
   */
 listint_t *insert_node(listint_t **head, int number)
 {
-	listint_t *new, *copy = *head;
+	listint_t *new, *copy;
 
 
+	/* check if head exists at all */
+	if (!head)
+		return (NULL);
+
+	/* Create new node to insert into linked list */
 	new = malloc(sizeof(listint_t));
+	if (!new)
+		return (NULL);
 	new->n = number;
-	if (!(copy) or number < copy->n)
+
+	/* insert at beginning */
+	if (!(*head) || number < (*head)->n)
 	{
-		new->next = copy;
+		new->next = *head;
 		*head = new;
-		return (*head);
+		return (new);
 	}
 
+	/* create copy of head to not move it */
+	copy = *head;
+
+	/*insert in the middle */
 	for (; copy->next; copy = copy->next)
 		if (number < copy->next->n)
 		{
 			new->next = copy->next;
 			copy->next = new;
-			return (*head);
+			return (new);
 		}
+
+	/* add at end */
 	copy->next = new;
 	new->next = NULL;
-	return  (*head);
+	return  (new);
 }
