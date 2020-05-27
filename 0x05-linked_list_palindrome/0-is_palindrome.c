@@ -1,5 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include <stddef.h>
 #include "lists.h"
 
 
@@ -10,8 +9,8 @@
  */
 int is_palindrome(listint_t **head)
 {
-    listint_t *rev, *prev = NULL, *copy = *head, *hold;
-    int size;
+    listint_t *copy = *head, *end, *prev, *hold;
+    int size, i;
 
     if (!head)
         return (0);
@@ -19,33 +18,32 @@ int is_palindrome(listint_t **head)
         return (1);
 
     for (size = 0; copy; size++)
+        copy = copy->next;
+
+    copy = *head;
+    
+    for (i = 0; i < size; i++)
     {
-        rev = malloc(sizeof(listint_t));
-        if (!rev)
+        hold = copy->next;
+        if (i > size / 2)
+            copy->next = prev; 
+        prev = copy;
+        if (hold)
+            copy = hold;
+    }
+    end = copy;
+    copy = *head;
+    prev = NULL;
+    for (i = 0; i < size / 2; i++)
+    {
+        if (copy->n != end->n)
             return (0);
-        rev->n = copy->n;
-        rev->next = prev;
-        prev = rev;
+        hold = end->next;
+        end->next = prev;
+        prev = end;
+        end = hold;
+
         copy = copy->next;
     }
-
-    hold = rev;
-    copy = *head;
-    size /= 2;
-
-    for (; size; size--)
-    {
-        if (rev && copy && rev->n != copy->n)
-        {
-            free_listint(hold);
-            return (0);
-        }
-        else
-        {
-            rev = rev->next;
-            copy = copy->next;
-        }
-    }
-    free_listint(hold);
     return (1);
 }
