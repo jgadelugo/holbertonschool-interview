@@ -5,20 +5,21 @@ import sys
 
 if __name__ == "__main__":
     status = {"200": 0,
-            "301": 0,
-            "400": 0,
-            "401": 0,
-            "403": 0,
-            "404": 0,
-            "405": 0,
-            "500": 0}
-    count = 0
+              "301": 0,
+              "400": 0,
+              "401": 0,
+              "403": 0,
+              "404": 0,
+              "405": 0,
+              "500": 0}
+    count = 1
     file_size = 0
     try:
         for line in sys.stdin:
             count += 1
-            status_code = line.split()[-2]
-            file_size += int(line.split()[-1])
+            parsed_line = line.split()
+            status_code = parsed_line[-2]
+            file_size += int(parsed_line[-1])
             status[status_code] += 1
             if count % 10 == 0:
                 print("File size:", file_size)
