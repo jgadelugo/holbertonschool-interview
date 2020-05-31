@@ -19,7 +19,7 @@ try:
         status_code = line.split()[-2]
         file_size += int(line.split()[-1])
         status[status_code] += 1
-        if count > 9:
+        if count % 10 == 0:
             print("File size:", file_size)
             for key, value in status.items():
                 if value:
