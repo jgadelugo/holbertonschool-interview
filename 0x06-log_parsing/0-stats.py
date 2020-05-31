@@ -14,21 +14,31 @@ if __name__ == "__main__":
               "500": 0}
     count = 1
     file_size = 0
-    try:
-        for line in sys.stdin:
-            count += 1
-            parsed_line = line.split()
-            status_code = parsed_line[-2]
-            file_size += int(parsed_line[-1])
-            status[status_code] += 1
-            if count % 10 == 0:
-                print("File size:", file_size)
-                for key, value in status.items():
-                    if value:
-                        print(key + ": " + str(value))
-    except KeyboardInterrupt:
+
+    def get_line(line):
+        """ parse and grab data"""
+        parsed_line = line.split()
+        status_code = parsed_line[-2]
+        status[status_code] += 1
+        return int(parsed_line[-1])
+
+    def print_stats():
+        """print stats"""
         print("File size:", file_size)
         for key, value in status.items():
             if value:
                 print(key + ": " + str(value))
-        raise(KeyboardInterrupt)
+
+    try:
+        for line in sys.stdin:
+            count += 1
+            try:
+                file_size += get_line(line)
+            except Exception:
+                pass
+            if count % 10 == 0:
+                print_stats()
+        print_stats()
+    except Exception:
+        print_stats()
+        raise
