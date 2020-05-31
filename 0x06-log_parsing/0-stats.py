@@ -24,10 +24,10 @@ if __name__ == "__main__":
 
     def print_stats():
         """print stats"""
-        print("File size:", file_size)
-        for key, value in status.items():
-            if value:
-                print(key + ": " + str(value))
+        print("File size: " + file_size)
+        for key in sorted(status.keys()):
+            if status[key]:
+                print(key + ": " + str(status[key]))
 
     try:
         for line in sys.stdin:
