@@ -19,7 +19,8 @@ if __name__ == "__main__":
         """ parse and grab data"""
         parsed_line = line.split()
         status_code = parsed_line[-2]
-        status[status_code] += 1
+        if status_code in status.keys():
+            status[status_code] += 1
         return int(parsed_line[-1])
 
     def print_stats():
