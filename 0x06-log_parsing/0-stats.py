@@ -29,17 +29,17 @@ if __name__ == "__main__":
     def print_stats():
         """print stats"""
         print("File size: {}".format(file_size))
-        for key in sorted(status.keys()):
+        for key in status.keys():
             if status[key]:
                 print("{}: {}".format(key, status[key]))
 
     try:
         for line in sys.stdin:
-            count += 1
             file_size += get_line(line)
             if count % 10 == 0:
                 print_stats()
-        print_stats()
+            count += 1
     except KeyboardInterrupt:
         print_stats()
         raise
+    print_stats()
