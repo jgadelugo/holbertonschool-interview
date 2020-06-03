@@ -17,11 +17,14 @@ if __name__ == "__main__":
 
     def get_line(line):
         """ parse and grab data"""
-        parsed_line = line.split()
-        status_code = parsed_line[-2]
-        if status_code in status.keys():
-            status[status_code] += 1
-        return int(parsed_line[-1])
+        try:
+            parsed_line = line.split()
+            status_code = parsed_line[-2]
+            if status_code in status.keys():
+                status[status_code] += 1
+            return int(parsed_line[-1])
+        except Exception:
+            return 0
 
     def print_stats():
         """print stats"""
