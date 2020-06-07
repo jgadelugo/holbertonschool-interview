@@ -1,5 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include <stddef.h>
 #include "lists.h"
 
 
@@ -10,42 +9,46 @@
  */
 int is_palindrome(listint_t **head)
 {
-    listint_t *rev, *prev = NULL, *copy = *head, *hold;
-    int size;
+    listint_t *copy = *head, *end = *head, *prev, *hold;
+    int size, i, is_pali = 1;
 
     if (!head)
         return (0);
-    if (!*head)
+
+    /* get size */
+    for (size = 0; copy; size++)
+        copy = copy->next;
+
+    if (!*head || size == 1)
         return (1);
 
-    for (size = 0; copy; size++)
+    copy = *head;
+
+    /* Flip half */
+    for (i = 0; i < size; i++)
     {
-        rev = malloc(sizeof(listint_t));
-        if (!rev)
-            return (0);
-        rev->n = copy->n;
-        rev->next = prev;
-        prev = rev;
+        hold = end->next;
+        if (i > size / 2)
+            end->next = prev; 
+        prev = end;
+        if (hold)
+            end = hold;
+    }
+
+    prev = NULL;
+
+    /* Check if palindrome and flip half back*/
+    for (i = 0; i < size / 2; i++)
+    {
+        if (copy->n != end->n)
+            is_pali = 0;
+
+        hold = end->next;
+        end->next = prev;
+        prev = end;
+        end = hold;
+
         copy = copy->next;
     }
-
-    hold = rev;
-    copy = *head;
-    size /= 2;
-
-    for (; size; size--)
-    {
-        if (rev && copy && rev->n != copy->n)
-        {
-            free_listint(hold);
-            return (0);
-        }
-        else
-        {
-            rev = rev->next;
-            copy = copy->next;
-        }
-    }
-    free_listint(hold);
-    return (1);
+    return (is_pali);
 }
