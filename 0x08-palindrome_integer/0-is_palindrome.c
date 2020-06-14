@@ -7,7 +7,7 @@
  * @n: get max tenth of this number
  * Return: tenth
  */
-int get_tenth(unsigned long n)
+unsigned long int get_tenth(unsigned long n)
 {
 	unsigned long i;
 
