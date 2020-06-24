@@ -42,4 +42,6 @@ def validUTF8(data):
         num_bytes -= 1
 
     # check if UTF-8 is uncomplete
-    return num_bytes == 0
+    if num_bytes:
+        return False
+    return True
