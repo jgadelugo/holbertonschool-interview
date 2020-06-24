@@ -13,7 +13,33 @@ def validUTF8(data):
 
     Return: True if data is valid UTF-8 encoding, else return False
     """
-    for d in data:
-        if d > 255:
-            return False
+    # to check if second most segnificant byte is 0 not (num & mask2)
+    mask2 = 1 << 6
+
+    num_bytes = 0
+
+    for num in data:
+        # check if most significant byte is 1 (num & mask1), reset
+        mask1 = 1 << 7
+        if num_bytes == 0:
+            # check num of bytes in first 8 bytes
+            # checks to see how many ones it has before a 0
+            while (num & mask1):
+                num_bytes += 1
+                mask1 = mask1 >> 1
+
+            if num_bytes == 0:
+                continue
+            # check utf-8 can be 1 to 4 bytes long
+            if num_bytes == 1 or num_bytes == 4:
+                return False
+        else:
+            # check that first two bites are 10xxxxxx if not return False
+            if not (num & mask1 and not (num & mask2)):
+                return False
+        num_bytes -= 1
+
+    # check if UTF-8 is uncomplete
+    if num_bytes:
+        return False
     return True
