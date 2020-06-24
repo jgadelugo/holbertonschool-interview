@@ -33,7 +33,7 @@ def validUTF8(data):
             if num_bytes == 0:
                 continue
             # check utf-8 can be 1 to 4 bytes long
-            if num_bytes == 1 or num_bytes == 4:
+            if num_bytes == 1 or num_bytes > 4:
                 return False
         else:
             # check that first two bites are 10xxxxxx if not return False
