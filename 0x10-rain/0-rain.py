@@ -6,13 +6,22 @@ def rain(walls):
     @walls: list of non-negative integers
     Return: integer indicating total amount of rainwater retained
     """
-    trapped = 0
-    first_wall = 0
-    for i in walls:
-        if first_wall == 0:
-            first_wall = i
-        elif first_wall < i:
-            first_wall = i
+    left = 0
+    l_max = 0
+    right = len(walls) - 1
+    r_max = 0
+    retained = 0
+    while (left < right):
+        if walls[left] < walls[right]:
+            if walls[left] >= l_max:
+                l_max = walls[left]
+            else:
+                retained += l_max - walls[left]
+            left += 1
         else:
-            trapped += first_wall - i
-    return trapped
+            if walls[right] >= r_max:
+                r_max = walls[right]
+            else:
+                retained += r_max - walls[right]
+            right -= 1
+    return retained
