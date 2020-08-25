@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Return: integer indicating total amount of rainwater retained"""
 
+
 def rain(walls):
     """rain
     @walls: list of non-negative integers
