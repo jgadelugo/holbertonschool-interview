@@ -42,7 +42,7 @@ void merge(int *arr, int l, int m, int r)
 			arr[k] = R[j];
 			j++;
 		}
-		printf(" %d");
+		printf(" %d", arr[k]);
 		k++;
 	}
 	printf("\n");
