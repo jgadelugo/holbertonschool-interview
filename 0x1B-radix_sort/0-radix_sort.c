@@ -29,6 +29,7 @@ void radix_lsd(int *array, int size, int div)
 	}
 	for (i = 0; i < size;   i++)
 		array[i] = output[i];
+    free(output);
 }
 
 /**
