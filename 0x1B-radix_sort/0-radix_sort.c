@@ -15,10 +15,10 @@ void radix_lsd(int *array, int size, int div)
 	output = malloc(sizeof(int) * size);
 	if (!output)
 		return;
-	for (i = 0; i < size;   i++)
+	for (i = 0; i < size; i++)
 		bucket[array[i] / div % 10]++;
 
-	for (i = 1; i < size;   i++)
+	for (i = 1; i < size; i++)
 		bucket[i] += bucket[i - 1];
 
 	for (i = size - 1; i >= 0; i--)
@@ -27,9 +27,9 @@ void radix_lsd(int *array, int size, int div)
 		output[bucket[bucketIDX] - 1] = array[i];
 		bucket[bucketIDX]--;
 	}
-	for (i = 0; i < size;   i++)
+	for (i = 0; i < size; i++)
 		array[i] = output[i];
-    free(output);
+	free(output);
 }
 
 /**
@@ -42,7 +42,7 @@ void radix_sort(int *array, size_t size)
 	size_t i;
 	int maxNum;
 
-	if (!array || !size || size == 1)
+	if (!array || !size || size <= 1)
 		return;
 
 	maxNum = array[0];
