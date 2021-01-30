@@ -94,11 +94,15 @@ def isWinner(x, nums):
     """
 
     score_board = {'Maria': 0, 'Ben': 0}
+    if len(nums) < 1 or list(set(nums)) == [0]:
+        return None
 
     for n in nums:
         det = 0
         if x < 1:
             break
+        if n == 0:
+            continue
 
         mults = [i for i in range(1, n + 1)]
         # print("Rounds left:", x)
