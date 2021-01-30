@@ -29,7 +29,8 @@ def pop_mults(p, mults):
         _pop = i * p
         if _pop > max_num:
             break
-        mults.remove(_pop)
+        if _pop in mults:
+            mults.remove(_pop)
     return mults
 
 
